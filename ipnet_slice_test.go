@@ -13,10 +13,7 @@ func getCIDR(ip net.IP, cidr *net.IPNet, err error) net.IPNet {
 }
 
 func equalCIDR(c1 net.IPNet, c2 net.IPNet) bool {
-	if c1.String() == c2.String() {
-		return true
-	}
-	return false
+	return c1.String() == c2.String()
 }
 
 func setUpIPNetFlagSet(ipsp *[]net.IPNet) *FlagSet {
@@ -159,7 +156,6 @@ func TestIPNetCalledTwice(t *testing.T) {
 }
 
 func TestIPNetBadQuoting(t *testing.T) {
-
 	tests := []struct {
 		Want    []net.IPNet
 		FlagArg []string
@@ -221,7 +217,6 @@ func TestIPNetBadQuoting(t *testing.T) {
 	}
 
 	for i, test := range tests {
-
 		var cidrs []net.IPNet
 		f := setUpIPNetFlagSet(&cidrs)
 

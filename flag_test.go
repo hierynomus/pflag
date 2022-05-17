@@ -20,15 +20,15 @@ import (
 )
 
 var (
-	testBool                     = Bool("test_bool", false, "bool value")
-	testInt                      = Int("test_int", 0, "int value")
-	testInt64                    = Int64("test_int64", 0, "int64 value")
-	testUint                     = Uint("test_uint", 0, "uint value")
-	testUint64                   = Uint64("test_uint64", 0, "uint64 value")
-	testString                   = String("test_string", "0", "string value")
-	testFloat                    = Float64("test_float64", 0, "float64 value")
-	testDuration                 = Duration("test_duration", 0, "time.Duration value")
-	testOptionalInt              = Int("test_optional_int", 0, "optional int value")
+	testBool                     = Bool("test_bool", false, "bool value")              //nolint:deadcode,unused,varcheck
+	testInt                      = Int("test_int", 0, "int value")                     //nolint:deadcode,unused,varcheck
+	testInt64                    = Int64("test_int64", 0, "int64 value")               //nolint:deadcode,unused,varcheck
+	testUint                     = Uint("test_uint", 0, "uint value")                  //nolint:deadcode,unused,varcheck
+	testUint64                   = Uint64("test_uint64", 0, "uint64 value")            //nolint:deadcode,unused,varcheck
+	testString                   = String("test_string", "0", "string value")          //nolint:deadcode,unused,varcheck
+	testFloat                    = Float64("test_float64", 0, "float64 value")         //nolint:deadcode,unused,varcheck
+	testDuration                 = Duration("test_duration", 0, "time.Duration value") //nolint:deadcode,unused,varcheck
+	testOptionalInt              = Int("test_optional_int", 0, "optional int value")   //nolint:deadcode,unused,varcheck
 	normalizeFlagNameInvocations = 0
 )
 
@@ -169,6 +169,7 @@ func TestName(t *testing.T) {
 	}
 }
 
+//nolint:funlen,gocyclo
 func testParse(f *FlagSet, t *testing.T) {
 	if f.Parsed() {
 		t.Error("f.Parse() = true before Parse")
@@ -317,16 +318,16 @@ func testParse(f *FlagSet, t *testing.T) {
 	if v, err := f.GetFloat64("float64"); err != nil || v != *float64Flag {
 		t.Errorf("GetFloat64 returned %v but float64Flag was %v", v, *float64Flag)
 	}
-	if !(*ipFlag).Equal(net.ParseIP("10.11.12.13")) {
+	if !ipFlag.Equal(net.ParseIP("10.11.12.13")) {
 		t.Error("ip flag should be 10.11.12.13, is ", *ipFlag)
 	}
 	if v, err := f.GetIP("ip"); err != nil || !v.Equal(*ipFlag) {
 		t.Errorf("GetIP returned %v but ipFlag was %v", v, *ipFlag)
 	}
-	if (*maskFlag).String() != ParseIPv4Mask("255.255.255.0").String() {
-		t.Error("mask flag should be 255.255.255.0, is ", (*maskFlag).String())
+	if maskFlag.String() != ParseIPv4Mask("255.255.255.0").String() {
+		t.Error("mask flag should be 255.255.255.0, is ", maskFlag.String())
 	}
-	if v, err := f.GetIPv4Mask("mask"); err != nil || v.String() != (*maskFlag).String() {
+	if v, err := f.GetIPv4Mask("mask"); err != nil || v.String() != maskFlag.String() {
 		t.Errorf("GetIP returned %v maskFlag was %v error was %v", v, *maskFlag, err)
 	}
 	if *durationFlag != 2*time.Minute {
@@ -571,7 +572,7 @@ func TestShorthandLookup(t *testing.T) {
 	defer func() {
 		recover()
 	}()
-	flag = f.ShorthandLookup("ab")
+	_ = f.ShorthandLookup("ab")
 	// should NEVER get here. lookup should panic. defer'd func should recover it.
 	t.Errorf("f.ShorthandLookup(\"ab\") did not panic")
 }
@@ -1239,7 +1240,7 @@ func TestPrintDefaults(t *testing.T) {
 	got := buf.String()
 	if got != defaultOutput {
 		fmt.Println("\n" + got)
-		fmt.Println("\n" + defaultOutput)
+		fmt.Print("\n" + defaultOutput)
 		t.Errorf("got %q want %q\n", got, defaultOutput)
 	}
 }

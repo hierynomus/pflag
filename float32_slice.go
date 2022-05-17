@@ -30,7 +30,6 @@ func (s *float32SliceValue) Set(val string) error {
 			return err
 		}
 		out[i] = float32(temp64)
-
 	}
 	if !s.changed {
 		*s.value = out
@@ -111,7 +110,6 @@ func float32SliceConv(val string) (interface{}, error) {
 			return nil, err
 		}
 		out[i] = float32(temp64)
-
 	}
 	return out, nil
 }

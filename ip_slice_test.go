@@ -165,7 +165,6 @@ func TestIPSAsSliceValue(t *testing.T) {
 }
 
 func TestIPSBadQuoting(t *testing.T) {
-
 	tests := []struct {
 		Want    []net.IP
 		FlagArg []string
@@ -227,7 +226,6 @@ func TestIPSBadQuoting(t *testing.T) {
 	}
 
 	for i, test := range tests {
-
 		var ips []net.IP
 		f := setUpIPSFlagSet(&ips)
 

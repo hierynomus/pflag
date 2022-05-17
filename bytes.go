@@ -39,7 +39,6 @@ func newBytesHexValue(val []byte, p *[]byte) *bytesHexValue {
 }
 
 func bytesHexConv(sval string) (interface{}, error) {
-
 	bin, err := hex.DecodeString(sval)
 
 	if err == nil {
@@ -140,7 +139,6 @@ func newBytesBase64Value(val []byte, p *[]byte) *bytesBase64Value {
 }
 
 func bytesBase64ValueConv(sval string) (interface{}, error) {
-
 	bin, err := base64.StdEncoding.DecodeString(sval)
 	if err == nil {
 		return bin, nil

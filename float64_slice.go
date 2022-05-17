@@ -28,8 +28,8 @@ func (s *float64SliceValue) Set(val string) error {
 		if err != nil {
 			return err
 		}
-
 	}
+
 	if !s.changed {
 		*s.value = out
 	} else {
@@ -91,20 +91,23 @@ func (s *float64SliceValue) GetSlice() []string {
 
 func float64SliceConv(val string) (interface{}, error) {
 	val = strings.Trim(val, "[]")
+
 	// Empty string would cause a slice with one (empty) entry
 	if len(val) == 0 {
 		return []float64{}, nil
 	}
+
 	ss := strings.Split(val, ",")
 	out := make([]float64, len(ss))
+
 	for i, d := range ss {
 		var err error
 		out[i], err = strconv.ParseFloat(d, 64)
 		if err != nil {
 			return nil, err
 		}
-
 	}
+
 	return out, nil
 }
 

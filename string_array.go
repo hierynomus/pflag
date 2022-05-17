@@ -30,9 +30,7 @@ func (s *stringArrayValue) Append(val string) error {
 
 func (s *stringArrayValue) Replace(val []string) error {
 	out := make([]string, len(val))
-	for i, d := range val {
-		out[i] = d
-	}
+	copy(out, val)
 	*s.value = out
 	return nil
 }
