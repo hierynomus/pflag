@@ -134,6 +134,10 @@ type ParseErrorsWhitelist struct {
 // for the FlagSet (e.g. making '-' and '_' equivalent).
 type NormalizedName string
 
+type DefaultZeroProvider interface {
+	IsDefaultZero(defValue string) bool
+}
+
 // A FlagSet represents a set of defined flags.
 type FlagSet struct {
 	// Usage is the function called when an error occurs while parsing flags.
@@ -551,6 +555,11 @@ func (f *Flag) defaultIsZeroValue() bool {
 	case *intSliceValue, *stringSliceValue, *stringArrayValue:
 		return f.DefValue == "[]"
 	default:
+		// Check whether the value type implements IsZero(), to allow for better custom flag handling
+		if p, ok := f.Value.(DefaultZeroProvider); ok {
+			return p.IsDefaultZero(f.DefValue)
+		}
+
 		switch f.Value.String() {
 		case "false":
 			return true
