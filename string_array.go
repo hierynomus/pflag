@@ -37,9 +37,7 @@ func (s *stringArrayValue) Replace(val []string) error {
 
 func (s *stringArrayValue) GetSlice() []string {
 	out := make([]string, len(*s.value))
-	for i, d := range *s.value {
-		out[i] = d
-	}
+	copy(out, *s.value)
 	return out
 }
 
