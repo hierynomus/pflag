@@ -1,0 +1,77 @@
+run:
+  # default concurrency is a available CPU number
+  concurrency: 4
+
+  # timeout for analysis, e.g. 30s, 5m, default is 1m
+  timeout: 5m
+
+  # exit code when at least one issue was found, default is 1
+  issues-exit-code: 1
+
+  # include test files or not, default is true
+  tests: true
+
+linters-settings:
+  golint:
+    min-confidence: 0
+  govet:
+    check-shadowing: false
+
+  nolintlint:
+    allow-leading-space: false
+    allow-unused: false # report any unused nolint directives
+    require-specific: true # don't require nolint directives to be specific about which linter is being skipped
+
+  skip-files:
+    - "generated/.*.go$"
+
+  forbidigo:
+    # Forbid the following identifiers (list of regexp).
+    forbid:
+      - 'fmt\.Print.*(# Please use the printer instead!\.)?'
+
+  lll:
+    line-length: 200
+
+  funlen:
+    lines: 100
+    statements: 60
+
+linters:
+  disable-all: true
+  enable:
+    - deadcode
+    - depguard
+    - dogsled
+    - dupl
+    - errcheck
+    - exhaustive
+    - funlen
+    - gochecknoinits
+    - goconst
+    - gocritic
+    - gocyclo
+    - gofmt
+    - goimports
+    - gomnd
+    - goprintffuncname
+    - gosec
+    - gosimple
+    - govet
+    - ineffassign
+    - lll
+    - misspell
+    - nakedret
+    - noctx
+    - nolintlint
+    - rowserrcheck
+    - exportloopref
+    - staticcheck
+    - structcheck
+    - typecheck
+    - unconvert
+    - unparam
+    - unused
+    - varcheck
+    - whitespace
+    - forbidigo
